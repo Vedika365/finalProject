@@ -2,8 +2,8 @@ package org.example;
 
 import java.util.List;
 
-public class ReminderService implements Nofiable {
-    List<Task> upcomingTask;
+public class ReminderService implements Notifiable {
+    private List<Task> upcomingTask;
 
     /**
      *

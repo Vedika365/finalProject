@@ -3,8 +3,8 @@ package org.example;
 import java.util.Objects;
 
 public class Badges extends RewardSystem {
-    String BadgeName;
-    String description;
+    private String BadgeName;
+    private String description;
 
 
     public Badges(String badgeName, String description) {

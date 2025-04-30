@@ -3,9 +3,9 @@ package org.example;
 import java.util.Objects;
 
 public class PersonalTask extends Task {
-    String location;
-    boolean isRecurring;
-    boolean isOptional;
+    private String location;
+    private boolean isRecurring;
+    private boolean isOptional;
 
     public PersonalTask(String location, boolean isRecurring, boolean isOptional) {
         this.location = location;

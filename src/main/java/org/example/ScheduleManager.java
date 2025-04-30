@@ -3,21 +3,26 @@ package org.example;
 import java.util.List;
 
 public class ScheduleManager {
-    List<Task> tasks;
+    private List<Task> tasks;
 
     public void exportSchedule(String schedule) {
                   //TODO fix this is it boolean
     }
-
-    public void importSchedule() {
-
-    }
-
     /**
      * view calendar
      */
-    public static void viewCalander() {
+    public static void viewCalender() {
 
     }
+
+    public static boolean importSchedule(String schedule) {
+
+    }
+
+    public static void viewCalendar(String calendar) {
+
+    }
+
+
 
 }
