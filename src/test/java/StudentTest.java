@@ -7,26 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class StudentTest {
-    @Test
-    void testCustomizePreference_normalInput() {
-
-        //todo fix this after
-
-
-        List<Task> taskList = new ArrayList<>();
-        Map<String, String> initialPreferences = new HashMap<>();
-        initialPreferences.put("studyTime", "morning");
-
-        Student student = new Student("Alice", "general");
-
-        //new preference to apply
-        Map<String, String> newPrefs = new HashMap<>();
-        newPrefs.put("studyTime", "evening");
-        newPrefs.put("reminderType", "popup");
-
-        student.customizePreference(newPrefs);
-        //TODO
-        }
-    }
+   @Test
+    void testCustomizePreference() {
+       Student student = new Student("Bob");
+       student.customizePreference("theme", "light");
+       assertEquals("light", student.getPreferences().get("theme"));
+   }
 }
