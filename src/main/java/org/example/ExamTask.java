@@ -8,6 +8,10 @@ public class ExamTask extends Task{
     private String location;
     private String format;
 
+    public ExamTask(String title, String description, LocalDateTime dueDate, String category) {
+        super(title, description, dueDate, category);
+    }
+
     public String getCourse() {
         return course;
     }

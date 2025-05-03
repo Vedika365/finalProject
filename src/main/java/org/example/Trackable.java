@@ -1,7 +1,7 @@
 package org.example;
 
 public interface Trackable {
-    public static void trackProgress() {
-
+    default void trackProgress() {
+        System.out.println("tracking the progress..");
     }
 }

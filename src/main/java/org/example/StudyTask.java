@@ -7,6 +7,7 @@ public class StudyTask extends Task {
 
 
     public StudyTask(String subject, String topic, int studyDuration) {
+        super();
         this.subject = subject;
         this.topic = topic;
         StudyDuration = studyDuration;

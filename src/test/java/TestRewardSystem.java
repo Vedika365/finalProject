@@ -2,6 +2,7 @@ import org.example.RewardSystem;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestRewardSystem {
     @Test
@@ -16,5 +17,13 @@ public class TestRewardSystem {
     }
 
     @Test
-    void testGrant
+    void testGrantReward_NotenoughPoint() {
+        RewardSystem.trackProgress(true); //ex.10 pts
+        RewardSystem.trackProgress(true);
+        RewardSystem.grantReward();
+        assertFalse(RewardSystem.isRewardEarned()); //reward should not be granted
+        assertEquals(20, RewardSystem.getPoints());
+    }
+
+
 }

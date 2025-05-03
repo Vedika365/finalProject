@@ -2,7 +2,9 @@ package org.example;
 
 public interface Rewardable {
 
-    public static void calculateReward() {
-
+    /**
+     * grant the reward
+     */
+    default void grantReward() {
     }
 }

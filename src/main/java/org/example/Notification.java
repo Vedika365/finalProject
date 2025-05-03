@@ -10,7 +10,7 @@ public class Notification implements Notifiable {
     /**
      * sends notifications
      */
-    public static void  sendNotifications() {
+    public void  sendNotifications() {
 
     }
 

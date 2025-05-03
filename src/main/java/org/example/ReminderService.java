@@ -16,7 +16,7 @@ public class ReminderService implements Notifiable {
     /**
      * method that sends notifications
      */
-    public static void sendNotifications() {
-
+    public void sendNotifications() {
+      //TODO
     }
 }

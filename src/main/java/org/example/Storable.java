@@ -1,11 +1,17 @@
 package org.example;
 
 public interface Storable {
-   public static void save() {
-
+   default void save() {
+      System.out.println("Data is saved : ");
+      //ToDO ADD THE LOGIC CODE
    }
 
-   public static void trackProgress() {
-
+   /**
+    * Static method to test track the progress
+    */
+     default void trackProgress() {
+     System.out.println("Tracking progress... ");
+      //TODO  add the logic to track progress
    }
+
 }
