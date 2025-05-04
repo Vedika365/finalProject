@@ -1,7 +1,11 @@
 package org.example;
 
+import java.io.FileNotFoundException;
+
 public interface Storable {
-   default void save() {
+
+
+   default void save(String fileName) {
       System.out.println("Data is saved : ");
       //ToDO ADD THE LOGIC CODE
    }
@@ -13,5 +17,10 @@ public interface Storable {
      System.out.println("Tracking progress... ");
       //TODO  add the logic to track progress
    }
+
+    /**
+     * method to load info from a file
+     */
+    void load(String fileName) throws FileNotFoundException;
 
 }

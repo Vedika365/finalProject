@@ -1,7 +1,12 @@
 package org.example;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Task implements Rewardable, Schedulable, Storable, Trackable{
@@ -22,18 +27,47 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable{
     /**
      * Edits tasks
      */
-    public static void editTasks(Task task, String newTitle, String newDesciption, LocalDateTime newDueDate, String newCategory) {
-      task.setTitle(newTitle);
-      task.setDescription(newDesciption);
-      task.setDueDate(newDueDate);
-      task.setCategory(newCategory);
+    public void editTasks(Task task, String newTitle, String newDesciption, LocalDateTime newDueDate, String newCategory) {
+      this.title = title;
+      this.description = description;
+      this.dueDate = dueDate;
+      this.category = category;
+    }
+
+    public void save(String fileName) {
+        try (FileWriter fw = new FileWriter());
+        fw.write();
+
+    }
+
+    @Override
+    public void load(String fileName) {
+          try (Scanner scanner = new Scanner(new File(fileName))) {
+              while (scanner.hasNextLine()) {
+                  String line = scanner.nextLine();
+                  String[] parts = line.split(",");
+                  if (parts.length == 5 ) {
+                  this.title = parts[0];
+                  this.description = parts[1];
+                  this.dueDate = LocalDateTime.parse(parts[2]);
+                  this.isCompleted = Boolean.parseBoolean(parts[2]);
+                  this.category = parts[4];
+                  System.out.println("Task" + title + " " + "loaded from " + fileName);
+                  return;  //has loaded only one task
+              }
+              else {
+                  System.out.println("invalid data format");
+          } catch (IOException) {
+
+          }
     }
 
     /**
      * deletes tasks
      */
     public void deleteTask(List<Task> taskList) {
-      taskList.remove(this);
+        taskList.remove(this);
+        System.out.println("Task" +title + "deleted");
     }
 
     /**
@@ -41,6 +75,7 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable{
      */
     public void markCompleted() {
        this.isCompleted = true ;
+        System.out.println("Progress of task" + title + ":" + "completed" );
     }
 
     /**
@@ -98,5 +133,10 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable{
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+    @Override
+    public void grantReward() {
+        Rewardable.super.grantReward();
     }
 }
