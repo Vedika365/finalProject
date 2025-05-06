@@ -17,6 +17,7 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     private String category;
     private boolean isCompleted;
 
+
     public Task(String title, String description, LocalDateTime dueDate, String category) {
         this.title = title;
         this.description = description;
@@ -113,7 +114,7 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     }
 
     private void add(Task task) {
-        
+
     }
 
     /**
@@ -154,7 +155,6 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     @Override
     public void grantReward () {
         Rewardable.super.grantReward();
-
     }
 
         public String getTitle () {

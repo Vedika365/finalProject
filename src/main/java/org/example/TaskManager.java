@@ -32,13 +32,24 @@ public class TaskManager {
         System.out.println("Task not found.");
     }
 
-    public static void markTaskAsCompleted() {
-
+    public void markTaskAsCompleted(Task task) {
+      for (int i = 0; i < allTask.size(); i++) {
+          if (allTask.get(i).equals(task)) {
+              allTask.get(i).markCompleted();
+              return;
+          }
+          System.out.println("Task not found. ");
+      }
     }
 
 
-    public static void filterTaskByCategory() {
-
+    public List<Task> filterTaskByCategory(String category) {
+      List<Task> filteredTasks = new ArrayList<>();
+      for (Task task : allTask) {
+          if (task.getCategory().equalsIgnoreCase(category));
+          filteredTasks.add(task);
+      }
+      return filteredTasks;
     }
 
     public static String viewTaskByCategory(List<Task> tasks) {
