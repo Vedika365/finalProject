@@ -8,6 +8,7 @@ public class PersonalTask extends Task {
     private boolean isOptional;
 
     public PersonalTask(String location, boolean isRecurring, boolean isOptional) {
+        super();
         this.location = location;
         this.isRecurring = isRecurring;
         this.isOptional = isOptional;

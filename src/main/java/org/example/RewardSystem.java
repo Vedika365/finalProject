@@ -1,8 +1,8 @@
 package org.example;
 
 public class RewardSystem {
-    private int points;
-    private boolean earned;
+    private static int points;
+    private static boolean earned;
 
   //TODO FIX EVERYTHING IN THIS CLASS, ALL WRONG
 
@@ -11,14 +11,20 @@ public class RewardSystem {
         this.earned = false;
     }
 
+
+    public void reset(int i, boolean b) {
+        this.points = 0;
+        this.earned = false;
+    }
+
     /**
      * grant reward if enough points are accumulated
      */
-    public static void grantReward() {
-        if (points >= 100) {
-            earned = true;
+    public void grantReward() {
+        if (this.points >= 100) {
+            this.earned = true;
             System.out.println("Reward granted");
-            points -= 100;  //reset/ reduce points after reward
+            this.points -= 100;  //reset/ reduce points after reward
         }
         else {
             System.out.println("Not enough points to grant reward");

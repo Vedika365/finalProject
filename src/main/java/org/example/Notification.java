@@ -5,30 +5,30 @@ import java.util.Objects;
 
 public class Notification implements Notifiable {
     private String message;
-    private LocalDateTime Date;
+    private LocalDateTime date;
 
     /**
      * sends notifications
      */
     public void  sendNotifications() {
-
+        System.out.println("Notification :" + message + "at" + date);
     }
 
     public Notification(String message, LocalDateTime date) {
         this.message = message;
-        Date = date;
+        this.date = date;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Notification that = (Notification) o;
-        return Objects.equals(message, that.message) && Objects.equals(Date, that.Date);
+        return Objects.equals(message, that.message) && Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(message, Date);
+        return Objects.hash(message, date);
     }
 
     public String getMessage() {
@@ -40,10 +40,10 @@ public class Notification implements Notifiable {
     }
 
     public LocalDateTime getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(LocalDateTime date) {
-        Date = date;
+        this.date = date;
     }
 }

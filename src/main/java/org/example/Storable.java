@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public interface Storable {
 
@@ -21,6 +22,5 @@ public interface Storable {
     /**
      * method to load info from a file
      */
-    void load(String fileName) throws FileNotFoundException;
-
+    List<Task> load(String fileName) throws FileNotFoundException;
 }

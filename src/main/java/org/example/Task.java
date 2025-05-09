@@ -6,15 +6,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Task implements Rewardable, Schedulable, Storable, Trackable {
     private String title;
-    private String description;
-    private LocalDateTime dueDate;
-    private String category;
+    private  String description;
+    private  LocalDateTime dueDate;
+    private  String category;
     private boolean isCompleted;
 
 
@@ -29,11 +30,11 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     /**
      * Edits tasks
      */
-    public void editTasks(Task task, String newTitle, String newDesciption, LocalDateTime newDueDate, String newCategory) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.category = category;
+    public static void editTasks(Task task, String newTitle, String newDescription, LocalDateTime newDueDate, String newCategory) {
+        task.setTitle(newTitle);
+        task.setDescription(newDescription);
+        task.setDueDate(newDueDate);
+        task.setCategory(newCategory);
     }
 
     /**
@@ -69,52 +70,60 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     }
 
     /**
-     * Loads tasks from a CSV file and adds them to a task list.
-     * Each task line should contain: title, description, dueDate, isCompleted, category
+     * Loads tasks from a file and returns them as a list.
      */
-    public void load(String fileName) throws FileNotFoundException {
+    public List<Task> load(String fileName) throws FileNotFoundException {
+        List<Task> loadedTasks = new ArrayList<>();
+
         try (Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(",");
 
-                if (parts.length == 5) {
-                    String title = parts[0].trim();
-                    String description = parts[1].trim();
-                    String dueDateStr = parts[2].trim();
-                    boolean isCompleted = Boolean.parseBoolean(parts[3].trim());
-                    String category = parts[4].trim();
+                if (line.equals("Task")) {
+                    String title = scanner.nextLine().split(":", 2)[1].trim();
+                    String description = scanner.nextLine().split(":", 2)[1].trim();
+                    String dueDateStr = scanner.nextLine().split(":", 2)[1].trim();
+                    boolean isCompleted = Boolean.parseBoolean(scanner.nextLine().split(":", 2)[1].trim());
+                    String category = scanner.nextLine().split(":", 2)[1].trim();
 
-                    // Try to parse the dueDate and handle errors if invalid
-                    LocalDateTime dueDate = null;
+                    scanner.nextLine(); // Skip "END_Task"
+
+                    LocalDateTime dueDate;
                     try {
                         dueDate = LocalDateTime.parse(dueDateStr);
                     } catch (DateTimeParseException e) {
                         System.out.println("Error parsing date: " + dueDateStr + " for task: " + title);
-                        continue; // Skip this task and move to the next one
+                        continue;
                     }
 
-                    // Create the task and add it to the list
                     Task task = new Task(title, description, dueDate, category);
-                    task.setCompleted(isCompleted); // Assuming there's a method to set the completion status
-                    task.add(task);
-
+                    task.setCompleted(isCompleted);
+                    loadedTasks.add(task);
                     System.out.println("Loaded task: " + title);
-                } else {
-                    System.out.println("Invalid data format (expected 5 attributes per task). Skipping line: " + line);
                 }
             }
-
         } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + fileName);
-            throw e; // Rethrow the exception after logging it
+            System.out.println("File not found: " + fileName);
+            throw e;
         } catch (Exception e) {
-            System.err.println("An error occurred while loading tasks: " + e.getMessage());
+            System.out.println("Error loading tasks: " + e.getMessage());
         }
+
+        return loadedTasks;
     }
+
 
     private void add(Task task) {
 
+    }
+
+    /**
+     * Organizes tasks by due date.
+     */
+    public static List<Task> organizeByDate(List<Task> tasks) {
+        return tasks.stream()
+                .sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -141,16 +150,6 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
             return tasks.stream()
                     .filter(task -> task.getCategory().equals(category)).collect(Collectors.toList());
         }
-
-        /**
-         * organize Tasks by date
-         * @param tasks a list of to filter from
-         */
-        public static List<Task> organizeByDate (List<Task> tasks){
-          return tasks.stream()
-                  .sorted((t1, t2)-> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
-        }
-
 
     @Override
     public void grantReward () {
