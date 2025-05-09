@@ -1,20 +1,23 @@
 package org.example;
 
 public class RewardSystem {
-    private static int points;
-    private static boolean earned;
+    private int points;
+    private boolean earned;
 
-  //TODO FIX EVERYTHING IN THIS CLASS, ALL WRONG
 
     public RewardSystem() {
         this.points = 0;
         this.earned = false;
     }
 
-
-    public void reset(int i, boolean b) {
-        this.points = 0;
-        this.earned = false;
+    /**
+     * reset the reward system to the given values
+     * @param points the points to reset to
+     * @param earned whether a reward is already earned
+     */
+    public void reset(int points, boolean earned) {
+        this.points = points;
+        this.earned = earned;
     }
 
     /**
@@ -32,9 +35,9 @@ public class RewardSystem {
     }
 
     /**
-     * track progress by adding points
+     * track progress by adding points when a task is completed
      */
-    public static void trackProgress(boolean TaskCompleted) {
+    public void trackProgress(boolean TaskCompleted) {
       if (TaskCompleted) {
           points += 10;
           System.out.println("Task completed. 10 points added. Total : " + points);
@@ -44,11 +47,11 @@ public class RewardSystem {
       }
     }
 
-    public static int getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public static boolean isRewardEarned() {
+    public boolean isRewardEarned() {
         return earned;
     }
 
