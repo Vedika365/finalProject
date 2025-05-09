@@ -2,13 +2,13 @@ import org.example.Task;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskTest {
-    //todo fix the errors tomorrow, need to submit right now
     @Test
     void testEditTask() {
         // Create task instance
@@ -26,9 +26,9 @@ public class TaskTest {
     @Test
     void testDeleteTask() {
         // Create a task list and delete the task
-        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12);
-        List<Task> taskList = List.of(task);
-
+        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(task);
         task.deleteTask(taskList);
 
         // Ensure the task list is empty after deletion
@@ -74,7 +74,7 @@ public class TaskTest {
         List<Task> tasks = List.of(task1, task2, task3);
 
         // Organize tasks by due date
-        List<Task> organizedTasks = Task.organizeByDate(Task tasks);
+        List<Task> organizedTasks = Task.organizeByDate(tasks);
 
         // Assert that the tasks are sorted by due date in ascending order
         assertEquals(task2, organizedTasks.get(0), "The first task should be the one with the earliest due date.");
@@ -88,11 +88,11 @@ public class TaskTest {
         Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
 
         // Initially, the task is not completed, so reward should not be granted
-        task.Grant();  // Should print "Task is not completed. No reward granted."
+        task.grantReward();  // Should print "Task is not completed. No reward granted."
 
         // Mark the task as completed and grant reward
         task.markCompleted();
-        task.GrantReward();  // Should print "Reward granted for completing the task!"
+        task.grantReward();  // Should print "Reward granted for completing the task!"
     }
 
     @Test
@@ -101,7 +101,7 @@ public class TaskTest {
         Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
 
         // Initially, the task is not completed
-        task();  // Should print "Task is in progress."
+        task.trackProgress();  // Should print "Task is in progress."
 
         // Mark the task as completed and check progress again
         task.markCompleted();

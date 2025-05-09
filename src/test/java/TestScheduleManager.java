@@ -13,19 +13,19 @@ public class TestScheduleManager {
 
     @Test
     void testAddTask() {
-        TaskManager taskManager = new TaskManager();
+        ScheduleManager scheduleManager = new ScheduleManager();
         Task task = new Task("Task 1", "Description", LocalDateTime.now(), "General");
-        taskManager.addTask(task);
-        assertEquals(1, taskManager.getAllTasks().size());
+        scheduleManager.addTask(task);
+        assertEquals(1, scheduleManager.getAllTasks().size());
     }
 
     @Test
     void testDeleteTask() {
-        TaskManager taskManager = new TaskManager();
-        Task task = new Task("Task1", "Descirption", LocalDateTime.now(), "General");
-        taskManager.addTask(task);
-        taskManager.deleteTask(task);
-        assertEquals(0,taskManager.getAllTasks().size());
+        ScheduleManager scheduleManager = new ScheduleManager();
+        Task task = new Task("Task1", "Description", LocalDateTime.now(), "General");
+        scheduleManager.addTask(task);
+        scheduleManager.deleteTask(task);
+        assertEquals(0, scheduleManager.getAllTasks().size());
     }
 
     @Test
@@ -50,10 +50,10 @@ public class TestScheduleManager {
 
     @Test
     void testSearchTask() {
-        TaskManager taskManager = new TaskManager();
+        ScheduleManager scheduleManager = new ScheduleManager();
         Task task = new Task("Search Task", "Search for this task", LocalDateTime.now(), "Work");
-        taskManager.addTask(task);
-        Task foundTask = taskManager.searchTask("Search Task");
+          scheduleManager.addTask(task);
+        Task foundTask = scheduleManager.searchTask("Search Task");
         assertEquals("Search Task", foundTask.getTitle());
     }
 }

@@ -1,21 +1,55 @@
 package org.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleManager {
     private List<Task> tasks;
+    List<Task> taskForCalendar;
 
-    public boolean exportSchedule(String schedule) {
-                  //TODO fix this is it boolean
-        return true;
+    /**
+     * Exports the current schedule to a file
+     * @param fileName the name of the file to write to
+     * @return true if the export was susseful, false otherwise
+     */
+    public boolean exportSchedule(String fileName) {
+                 if (tasks == null || tasks.isEmpty()) {
+                     System.out.println("No tasks to export. ");
+                     return false;
+                 }
+                 try (FileWriter writer = new FileWriter(fileName)) {
+                     for (Task task : tasks) {
+                         writer.write("Title: " + task.getTitle() + "\n");
+                         writer.write("Description: " + task.getDescription() + "\n");
+                         writer.write("DueDate: " + task.getDueDate() + "\n");
+                         writer.write("Completed: " + task.isCompleted() + "\n");
+                         writer.write("Category: " + task.getCategory() + "\n");
+                         writer.write("--------\n");
+                     }
+                     System.out.println("Schedule exported to " + fileName);
+                     return true;
+                 } catch (IOException e) {
+                     System.out.println("Error exporting schedule: " + e.getMessage());
+                     return false;
+                 }
     }
+
     /**
      * view calendar
-     * static method to view the calendar without needing an instance
+     * static method to view the calendar
      */
-    public static void viewCalender() {
+    public void viewCalender(String calendar) {
         System.out.println("viewing calendar.......");
-        //TODO LOGIC TO ADD CALENDAR
+        if (taskForCalendar.isEmpty()) {
+            System.out.println("no tasks found for this calendar.");
+        } else {
+            System.out.println(" Tasks in calendar : " + calendar);
+            for (Task task : taskForCalendar) {
+                System.out.println("- " + task.getTitle() + "Due" + task.getDueDate() + ")");
+            }
+        }
     }
 
     /**
@@ -28,13 +62,21 @@ public class ScheduleManager {
         return true;
     }
 
-    /**
-     * view the calendar with a specific identifier
-     * @param calendar the identifier of the calendar to be viewed
-     */
-    public static void viewCalendar(String calendar) {
-        System.out.println("Viewing calendar : " + calendar);
-        //TODO ADD LOGIC TO VIEW A SPECIFIC CALENDAR
+    //getTasks associated with a specific calendar
+
+    //add a method to viewAllTasks
+    public void addAllTasks(List<Task> tasksToAdd) {
+        if (this.tasks == null) {
+            this.tasks = new ArrayList<>();
+        }
+        this.tasks.addAll(tasksToAdd);
+    }
+
+    public List<Task> getAllTasks() {
+        if (this.tasks == null) {
+            this.tasks = new ArrayList<>();
+        }
+        return this.tasks;
     }
 
     public List<Task> getTasks() {
@@ -43,5 +85,25 @@ public class ScheduleManager {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Task> getTasksForCalendar() {
+        return taskForCalendar;
+    }
+
+    public void deleteTask(Task task) {
+        if (this.tasks != null && this.tasks.contains(task)) {
+            this.tasks.remove(task);
+            System.out.println("Task '" + task.getTitle() + "' deleted from schedule.");
+        } else {
+            System.out.println("Task not found or task list is empty.");
+        }
+    }
+
+    public void addTask(Task task) {
+        if (this.tasks == null) {
+            this.tasks = new ArrayList<>();
+        }
+        this.tasks.add(task);
     }
 }
