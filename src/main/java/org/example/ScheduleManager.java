@@ -38,7 +38,7 @@ public class ScheduleManager {
                     }
                 }
             } catch (Exception ex) {
-                result.add(new Task("Error", "Invalid format. Use 'YYYY-MM-DD' or 'YYYY-MM'", null, "Error", false));
+                result.add(new Task("Error", "Invalid format. Use 'YYYY-MM-DD' or 'YYYY-MM'", null, "Error", false, Task.Priority.LOW));
             }
         }
         return result;

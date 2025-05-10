@@ -7,7 +7,7 @@ public class UserTest {
     @Test
     void testUserCreation() {
         User user = new User("Julie", "sports");
-        assertEquals("John", user.getName());
+        assertEquals("Julie", user.getName());
         assertEquals("sports", user.getPreference());
     }
 

@@ -23,12 +23,22 @@ public class ScheduleManagerTest {
 
     @Test
     void testAddTask() {
+        // Create ScheduleManager instance
         ScheduleManager scheduleManager = new ScheduleManager();
-        Task task = new Task();
+
+        // Create a Task with a specific title
+        Task task = new Task("Task 1");
+
+        // Add the task to the schedule manager
         scheduleManager.addTask(task);
+
+        // Assert that the task is added to the list (size of 1)
         assertEquals(1, scheduleManager.getAllTasks().size());
+
+        // Assert that the task title matches
         assertEquals("Task 1", scheduleManager.getAllTasks().get(0).getTitle());
     }
+
 
     @Test
     void testDeleteTask() {

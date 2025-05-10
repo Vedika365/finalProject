@@ -3,88 +3,70 @@ package org.example;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskManager {
-    private static List<Task> allTask;
+    private static List<Task> allTask = new ArrayList<>();
     private ReminderService reminders;
 
-    public TaskManager(List<Task> allTask, ReminderService reminders) {
-        this.allTask = new ArrayList<>();
-        this.reminders = new ReminderService();
+    public TaskManager(List<Task> tasks, ReminderService reminders) {
+        if (tasks != null) {
+            allTask = new ArrayList<>(tasks);
+        }
+        this.reminders = reminders != null ? reminders : new ReminderService();
     }
 
-
     public void addTask(Task task) {
-        this.allTask.add(task);
+        allTask.add(task);
     }
 
     public void deleteTask(Task task) {
         allTask.remove(task);
-        System.out.println("Task deleted from TaskManager" + task.getTitle());
+        System.out.println("Task deleted from TaskManager: " + task.getTitle());
     }
 
-    public static void editTask(Task task, String newTitle, String newDescription, LocalDateTime newDueDate, String newCategory) {
-        for (int i = 0; i < allTask.size(); i++) {
-            if (allTask.get(i).equals(task)) {
-                Task.editTasks(task, newTitle, newDescription, newDueDate, newCategory);
-                return;
-            }
+    public static void editTask(Task task, String newTitle, String newDescription, LocalDateTime newDueDate, String newCategory, Task.Priority priority) {
+        if (task == null || !allTask.contains(task)) {
+            System.out.println("Task not found.");
+            return;
         }
-        System.out.println("Task not found.");
+        Task.editTasks(task, newTitle, newDescription, newDueDate, newCategory, priority);
     }
 
     public void markTaskAsCompleted(Task task) {
-        for (int i = 0; i < allTask.size(); i++) {
-            if (allTask.get(i).equals(task)) {
-                allTask.get(i).markCompleted();
-                return;
-            }
-            System.out.println("Task not found. ");
+        if (task != null && allTask.contains(task)) {
+            task.markCompleted();
+        } else {
+            System.out.println("Task not found.");
         }
     }
-
 
     public List<Task> filterTaskByCategory(String category) {
-        List<Task> filteredTasks = new ArrayList<>();
-        for (Task task : allTask) {
-            if (task.getCategory().equalsIgnoreCase(category)) ;
-            filteredTasks.add(task);
-        }
-        return filteredTasks;
+        return allTask.stream()
+                .filter(task -> task.getCategory().equalsIgnoreCase(category))
+                .collect(Collectors.toList());
     }
 
-    /**
-     * lets the user see the task by category
-     *
-     * @param tasks a list of tasks to check from
-     * @return a String containing the tasks in order
-     */
     public String viewTaskByCategory(List<Task> tasks) {
         if (tasks == null || tasks.isEmpty()) {
             return "No tasks available";
         }
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {
-            lines.add("Category:" + task.getCategory());
+            lines.add("Category: " + task.getCategory());
             lines.add("Title: " + task.getTitle());
-            lines.add(" Description :  " + task.getDescription());
-            lines.add(" Due Date : " + task.getDueDate());
-            lines.add("Completed :  " + task.isCompleted());
+            lines.add("Description: " + task.getDescription());
+            lines.add("Due Date: " + task.getDueDate());
+            lines.add("Completed: " + task.isCompleted());
         }
-        return String.join("\n, lines");
-
+        return String.join("\n", lines);
     }
 
-    /**
-     * lets the user seach for a task
-     *
-     * @param task the task seraching for
-     * @return a string, the string needed
-     */
     public static String searchTask(Task task) {
         if (task == null) {
-            return "task not found";
+            return "Task not found";
         }
         return String.join("\n", Arrays.asList(
                 "Found Task:",
@@ -96,29 +78,27 @@ public class TaskManager {
         ));
     }
 
-
-    /**
-     * Organise tasks by date
-     * @param tasks the list of tasks
-     */
     public static void organiseTaskByDate(List<Task> tasks) {
-
+        tasks.sort(Comparator.comparing(Task::getDueDate));
     }
 
-    /**
-     * prioritize tasks
-     * @param task the list of tasks
-     */
-    public static void prioritizeTasks(String task) {
-
+    public static void prioritizeTasks(List<Task> tasks, String taskTitle) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTitle().equals(taskTitle)) {
+                Task task = tasks.remove(i);
+                tasks.add(0, task);
+                return;
+            }
+        }
+        System.out.println("Task not found: " + taskTitle);
     }
 
-    /**
-     * load tasks from a file
-     * @param filePath the filePath of the file to load from
-     * @return boolean value, depending on if the procedure was successful or not
-     */
+    public static void prioritizeTasksByPriority(List<Task> tasks) {
+        tasks.sort((t1, t2) -> t2.getPriority().compareTo(t1.getPriority()));
+    }
+
     public static boolean loadTaskFromFile(String filePath) {
+        // Placeholder: implement actual file loading logic
         return false;
     }
 
@@ -126,8 +106,8 @@ public class TaskManager {
         return allTask;
     }
 
-    public static void setAllTask(List<Task> allTask) {
-        TaskManager.allTask = allTask;
+    public static void setAllTask(List<Task> tasks) {
+        allTask = tasks;
     }
 
     public ReminderService getReminders() {

@@ -13,9 +13,9 @@ public class ReminderServiceTest {
     @Test
     void testCheckDueTasks() {
         // Creating tasks with the updated constructor
-        Task dueToday = new Task("Math homework", "Complete the exercises", LocalDateTime.now(), "Study", false);
-        Task dueTomorrow = new Task("Physics lab", "Finish the experiment write-up", LocalDateTime.now().plusDays(1), "Lab", false);
-        Task noDueDate = new Task("General task", "Random task without a due date", null, "Misc", false);
+        Task dueToday = new Task("Math homework", "Complete the exercises", LocalDateTime.now(), "Study", false, Task.Priority.LOW);
+        Task dueTomorrow = new Task("Physics lab", "Finish the experiment write-up", LocalDateTime.now().plusDays(1), "Lab", false, Task.Priority.LOW);
+        Task noDueDate = new Task("General task", "Random task without a due date", null, "Misc", false, Task.Priority.LOW);
 
         List<Task> allTasks = Arrays.asList(dueToday, dueTomorrow, noDueDate);
 

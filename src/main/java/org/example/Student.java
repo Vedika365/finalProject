@@ -12,7 +12,9 @@ public class Student extends User {
         super(name, "Default");
         this.tasks = new ArrayList<>();
         this.preference = new HashMap<>();
+        this.preference.put("theme", "Default"); // Set default preference
     }
+
 
         public List<Task> getTasks() {
             return tasks;

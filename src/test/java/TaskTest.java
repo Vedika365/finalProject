@@ -17,7 +17,7 @@ public class TaskTest {
         Task task = new Task();
 
         // Edit the task and check if the fields are updated correctly
-        Task.editTasks(task, "Updated Task", "Updated Description", LocalDateTime.of(2025, 6, 15, 14, 0), "Personal");
+        Task.editTasks(task, "Updated Task", "Updated Description", LocalDateTime.of(2025, 6, 15, 14, 0), "Personal", Task.Priority.LOW);
 
         assertEquals("Updated Task", task.getTitle());
         assertEquals("Updated Description", task.getDescription());

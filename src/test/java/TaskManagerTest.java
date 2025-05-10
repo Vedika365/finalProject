@@ -1,75 +1,90 @@
-import org.example.ReminderService;
-import org.example.Task;
-import org.example.TaskManager;
+package org.example;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskManagerTest {
+    private TaskManager taskManager;
+    private Task sampleTask1;
+    private Task sampleTask2;
 
-    @Test
-    void addTask_AddTask() {
-        Task task1 = new Task("Finish report", "Complete the final draft",
-                LocalDateTime.now().withHour(17), "Work", false);
-        Task task4 = new Task("Clean the house", "Do a quick cleaning",
-                LocalDateTime.now().plusDays(3), "Personal", false);
+    @BeforeEach
+    void setUp() {
+        sampleTask1 = new Task("Title1", "Desc1", LocalDateTime.now().plusDays(1), "Work", false, Task.Priority.MEDIUM);
+        sampleTask2 = new Task("Title2", "Desc2", LocalDateTime.now().plusDays(2), "Home", false, Task.Priority.HIGH);
 
-        ReminderService reminderService = new ReminderService();
-        TaskManager taskManager = new TaskManager(Arrays.asList(task1), reminderService);
-        taskManager.addTask(task4);
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(sampleTask1);
+        taskList.add(sampleTask2);
 
-        assertTrue(taskManager.filterTaskByCategory("Personal").contains(task4));
+        taskManager = new TaskManager(taskList, new ReminderService());
+        TaskManager.setAllTask(taskList);
     }
 
     @Test
-    void deleteTask_RemoveTask() {
-        Task task1 = new Task("Finish report", "Complete the final draft",
-                LocalDateTime.now().withHour(17), "Work", false);
-        Task task2 = new Task("Team meeting", "Weekly sync",
-                LocalDateTime.now().plusDays(1).withHour(10), "Work", false);
-
-        ReminderService reminderService = new ReminderService();
-        TaskManager taskManager = new TaskManager(Arrays.asList(task1, task2), reminderService);
-        taskManager.deleteTask(task1);
-
-        assertFalse(taskManager.filterTaskByCategory("Work").contains(task1));
+    void testAddTask() {
+        Task task = new Task("New Task", "Description", LocalDateTime.now().plusDays(3), "Other", false, Task.Priority.LOW);
+        taskManager.addTask(task);
+        assertTrue(TaskManager.getAllTask().contains(task));
     }
 
     @Test
-    public void testEditTask() {
-        List<Task> tasks = new ArrayList<>();
-        ReminderService reminderService = new ReminderService();
-        TaskManager taskManager = new TaskManager(tasks, reminderService);
-
-        Task task = new Task("OldTitle", "OldDesc", LocalDateTime.now().plusDays(1), "OldCat", false);
-        tasks.add(task);
-
-        TaskManager.editTask(task, "NewTitle", "NewDesc", LocalDateTime.now().plusDays(3), "NewCat");
-
-        assertEquals("NewTitle", task.getTitle());
-        assertEquals("NewDesc", task.getDescription());
-        assertEquals("NewCat", task.getCategory());
+    void testDeleteTask() {
+        taskManager.deleteTask(sampleTask1);
+        assertFalse(TaskManager.getAllTask().contains(sampleTask1));
     }
 
     @Test
-    public void testMarkTaskAsCompleted() {
-        List<Task> tasks = new ArrayList<>();
-        ReminderService reminderService = new ReminderService();
-        TaskManager taskManager = new TaskManager(tasks, reminderService);
-
-        Task task = new Task("Task1", "Desc", LocalDateTime.now().plusDays(1), "General", false);
-        tasks.add(task);
-
-        taskManager.markTaskAsCompleted(task);
-
-        assertTrue(task.isCompleted());
+    void testEditTask() {
+        TaskManager.editTask(sampleTask1, "Updated Title", "Updated Desc", LocalDateTime.now().plusDays(5), "UpdatedCat", Task.Priority.HIGH);
+        assertEquals("Updated Title", sampleTask1.getTitle());
+        assertEquals("Updated Desc", sampleTask1.getDescription());
+        assertEquals("UpdatedCat", sampleTask1.getCategory());
+        assertEquals(Task.Priority.HIGH, sampleTask1.getPriority());
     }
 
+    @Test
+    void testMarkTaskAsCompleted() {
+        taskManager.markTaskAsCompleted(sampleTask2);
+        assertTrue(sampleTask2.isCompleted());
+    }
 
+    @Test
+    void testFilterTaskByCategory() {
+        List<Task> filtered = taskManager.filterTaskByCategory("Work");
+        assertEquals(1, filtered.size());
+        assertEquals("Work", filtered.get(0).getCategory());
+    }
 
+    @Test
+    void testViewTaskByCategory() {
+        String output = taskManager.viewTaskByCategory(TaskManager.getAllTask());
+        assertTrue(output.contains("Category:"));
+        assertTrue(output.contains("Title: "));
+    }
+
+    @Test
+    void testSearchTask() {
+        String output = TaskManager.searchTask(sampleTask2);
+        assertTrue(output.contains("Found Task:"));
+        assertTrue(output.contains(sampleTask2.getTitle()));
+    }
+
+    @Test
+    void testPrioritizeTasks() {
+        TaskManager.prioritizeTasks(TaskManager.getAllTask(), sampleTask2.getTitle());
+        assertEquals(sampleTask2, TaskManager.getAllTask().get(0));
+    }
+
+    @Test
+    void testPrioritizeTasksByPriority() {
+        TaskManager.prioritizeTasksByPriority(TaskManager.getAllTask());
+        assertEquals(Task.Priority.MEDIUM, TaskManager.getAllTask().get(0).getPriority());
+    }
 }

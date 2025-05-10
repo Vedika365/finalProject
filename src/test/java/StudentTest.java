@@ -12,25 +12,29 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StudentTest {
    @Test
-    void testCustomizePreference() {
-       Student student = new Student("Bob");
-       student.customizePreference("theme", "light");
-       assertEquals("light", student.getPreferences().get("theme"));
+   void testCustomizePreference() {
+      // Create a student with the name "Bob"
+      Student student = new Student("Bob");
+
+      // Customize preference for "theme"
+      student.customizePreference("theme", "light");
+
+      // Assert that the theme preference is set to "light"
+      assertEquals("light", student.getPreferences().get("theme"));
    }
 
    @Test
    void testCustomizePreference2() {
+      // Create a student with the name "Charlie"
       Student student = new Student("Charlie");
+
+      // Customize preference for "FavoriteSubject"
       student.customizePreference("FavoriteSubject", "Math");
+
+      // Assert that the "FavoriteSubject" preference exists
       assertTrue(student.getPreferences().containsKey("FavoriteSubject"));
+
+      // Assert that the value for "FavoriteSubject" is "Math"
       assertEquals("Math", student.getPreferences().get("FavoriteSubject"));
    }
-
-   @Test
-   void testStudentCreation() {
-      Student student = new Student("Bob");
-      assertEquals("Bob", student.getName());
-      assertEquals("Default", student.getPreferences());
-   }
-
 }

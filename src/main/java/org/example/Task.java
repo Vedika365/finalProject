@@ -17,15 +17,7 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     private  LocalDateTime dueDate;
     private  String category;
     private boolean isCompleted;
-
-
-    public Task() {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.category = category;
-        this.isCompleted = false;
-    }
+    private Priority priority;
 
     public Task(String title, String description, LocalDateTime dueDate, String category, boolean isCompleted) {
         this.title = title;
@@ -35,16 +27,43 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
         this.isCompleted = isCompleted;
     }
 
+    public enum Priority {
+        HIGH,
+        MEDIUM,
+        LOW
+    }
+    public Task() {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.category = category;
+        this.isCompleted = false;
+        this.priority = priority;
+    }
 
+    public Task(String title, String description, LocalDateTime dueDate, String category, boolean isCompleted, Priority priority) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.category = category;
+        this.isCompleted = isCompleted;
+        this.priority = priority;
+    }
+    //constructor to create task with only title
+    public Task(String title ) {
+        this.title = title;
+    }
 
     /**
      * Edits tasks
      */
-    public static void editTasks(Task task, String newTitle, String newDescription, LocalDateTime newDueDate, String newCategory) {
+    public static void editTasks(Task task, String newTitle, String newDescription, LocalDateTime newDueDate, String newCategory, Priority newPriority) {
+        if (task == null) return;
         task.setTitle(newTitle);
         task.setDescription(newDescription);
         task.setDueDate(newDueDate);
         task.setCategory(newCategory);
+        task.setPriority(newPriority);
     }
 
     /**
@@ -205,5 +224,13 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
         public void setCompleted ( boolean completed){
             isCompleted = completed;
         }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 }
 
