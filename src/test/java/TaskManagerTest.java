@@ -4,6 +4,7 @@ import org.example.TaskManager;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,5 +39,37 @@ class TaskManagerTest {
 
         assertFalse(taskManager.filterTaskByCategory("Work").contains(task1));
     }
-      //TODO ADD MORE TEST CASES NOT FINISHED
+
+    @Test
+    public void testEditTask() {
+        List<Task> tasks = new ArrayList<>();
+        ReminderService reminderService = new ReminderService();
+        TaskManager taskManager = new TaskManager(tasks, reminderService);
+
+        Task task = new Task("OldTitle", "OldDesc", LocalDateTime.now().plusDays(1), "OldCat", false);
+        tasks.add(task);
+
+        TaskManager.editTask(task, "NewTitle", "NewDesc", LocalDateTime.now().plusDays(3), "NewCat");
+
+        assertEquals("NewTitle", task.getTitle());
+        assertEquals("NewDesc", task.getDescription());
+        assertEquals("NewCat", task.getCategory());
+    }
+
+    @Test
+    public void testMarkTaskAsCompleted() {
+        List<Task> tasks = new ArrayList<>();
+        ReminderService reminderService = new ReminderService();
+        TaskManager taskManager = new TaskManager(tasks, reminderService);
+
+        Task task = new Task("Task1", "Desc", LocalDateTime.now().plusDays(1), "General", false);
+        tasks.add(task);
+
+        taskManager.markTaskAsCompleted(task);
+        
+        assertTrue(task.isCompleted());
+    }
+
+
+
 }
