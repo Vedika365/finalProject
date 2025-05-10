@@ -12,7 +12,7 @@ public class TaskTest {
     @Test
     void testEditTask() {
         // Create task instance
-        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
+        Task task = new Task();
 
         // Edit the task and check if the fields are updated correctly
         Task.editTasks(task, "Updated Task", "Updated Description", LocalDateTime.of(2025, 6, 15, 14, 0), "Personal");
@@ -26,7 +26,7 @@ public class TaskTest {
     @Test
     void testDeleteTask() {
         // Create a task list and delete the task
-        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
+        Task task = new Task();
         List<Task> taskList = new ArrayList<>();
         taskList.add(task);
         task.deleteTask(taskList);
@@ -38,7 +38,7 @@ public class TaskTest {
     @Test
     void testMarkCompleted() {
         // Create task instance
-        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
+        Task task = new Task();
 
         // Mark the task as completed
         task.markCompleted();
@@ -50,9 +50,9 @@ public class TaskTest {
     @Test
     void testFilterByCategory() {
         // Create a list of tasks with different categories
-        Task task1 = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
-        Task task2 = new Task("Task 2", "Description of task 2", LocalDateTime.of(2025, 5, 12, 9, 0), "Personal");
-        Task task3 = new Task("Task 3", "Description of task 3", LocalDateTime.of(2025, 5, 15, 16, 0), "Work");
+        Task task1 = new Task();
+        Task task2 = new Task();
+        Task task3 = new Task();
 
         List<Task> tasks = List.of(task1, task2, task3);
 
@@ -67,9 +67,9 @@ public class TaskTest {
     @Test
     void testOrganizeByDate() {
         // Create a list of tasks with different due dates
-        Task task1 = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
-        Task task2 = new Task("Task 2", "Description of task 2", LocalDateTime.of(2025, 5, 8, 9, 0), "Personal");
-        Task task3 = new Task("Task 3", "Description of task 3", LocalDateTime.of(2025, 5, 12, 16, 0), "Work");
+        Task task1 = new Task();
+        Task task2 = new Task();
+        Task task3 = new Task();
 
         List<Task> tasks = List.of(task1, task2, task3);
 
@@ -85,7 +85,7 @@ public class TaskTest {
     @Test
     void testGrantReward() {
         // Create task instance
-        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
+        Task task = new Task();
 
         // Initially, the task is not completed, so reward should not be granted
         task.grantReward();  // Should print "Task is not completed. No reward granted."
@@ -98,7 +98,7 @@ public class TaskTest {
     @Test
     void testTrackProgress() {
         // Create task instance
-        Task task = new Task("Task 1", "Description of task 1", LocalDateTime.of(2025, 5, 10, 12, 0), "Work");
+        Task task = new Task();
 
         // Initially, the task is not completed
         task.trackProgress();  // Should print "Task is in progress."

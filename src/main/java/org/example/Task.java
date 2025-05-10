@@ -19,13 +19,22 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     private boolean isCompleted;
 
 
-    public Task(String title, String description, LocalDateTime dueDate, String category) {
+    public Task() {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.category = category;
         this.isCompleted = false;
     }
+
+    public Task(String title, String description, LocalDateTime dueDate, String category, boolean isCompleted) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.category = category;
+        this.isCompleted = isCompleted;
+    }
+
 
     /**
      * Edits tasks
@@ -96,7 +105,7 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
                         continue;
                     }
 
-                    Task task = new Task(title, description, dueDate, category);
+                    Task task = new Task();
                     task.setCompleted(isCompleted);
                     loadedTasks.add(task);
                     System.out.println("Loaded task: " + title);

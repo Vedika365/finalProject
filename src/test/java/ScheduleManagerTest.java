@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ScheduleManagerTest {
     @Test
     void testAddTask() {
         ScheduleManager scheduleManager = new ScheduleManager();
-        Task task = new Task("Task 1", "Test description", LocalDateTime.now(), "Work");
+        Task task = new Task();
         scheduleManager.addTask(task);
         assertEquals(1, scheduleManager.getAllTasks().size());
         assertEquals("Task 1", scheduleManager.getAllTasks().get(0).getTitle());
@@ -32,7 +31,7 @@ public class ScheduleManagerTest {
     @Test
     void testDeleteTask() {
         ScheduleManager scheduleManager = new ScheduleManager();
-        Task task = new Task("Task 1", "Test description", LocalDateTime.now(), "Work");
+        Task task = new Task();
         scheduleManager.addTask(task);
         scheduleManager.deleteTask(task);
         assertEquals(0, scheduleManager.getAllTasks().size());
@@ -41,7 +40,7 @@ public class ScheduleManagerTest {
     @Test
     void testExportScheduleWithTasks() {
         ScheduleManager scheduleManager = new ScheduleManager();
-        Task task = new Task("Task 1", "Test description", LocalDateTime.now(), "Work");
+        Task task = new Task();
         scheduleManager.addTask(task);
         boolean result = scheduleManager.exportSchedule("test_schedule.txt");
         assertTrue(result);
@@ -59,8 +58,8 @@ public class ScheduleManagerTest {
     void testAddAllTasks() {
         ScheduleManager scheduleManager = new ScheduleManager();
         List<Task> tasks = new ArrayList<>();
-        tasks.add(new Task("Task 1", "Test description", LocalDateTime.now(), "Work"));
-        tasks.add(new Task("Task 2", "Another task", LocalDateTime.now().plusDays(1), "Personal"));
+        tasks.add(new Task());
+        tasks.add(new Task());
 
         scheduleManager.addAllTasks(tasks);
         assertEquals(2, scheduleManager.getAllTasks().size());

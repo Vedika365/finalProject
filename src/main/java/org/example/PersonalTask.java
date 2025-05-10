@@ -1,5 +1,6 @@
 package org.example;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class PersonalTask extends Task {
@@ -7,8 +8,8 @@ public class PersonalTask extends Task {
     private boolean isRecurring;
     private boolean isOptional;
 
-    public PersonalTask(String location, boolean isRecurring, boolean isOptional) {
-        super();
+    public PersonalTask(String location, boolean isRecurring, boolean isOptional, String title, String description, LocalDateTime dueDate, String category, boolean isCompleted) {
+        super(title,description, dueDate, category, isCompleted);
         this.location = location;
         this.isRecurring = isRecurring;
         this.isOptional = isOptional;

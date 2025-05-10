@@ -9,7 +9,7 @@ public class ExamTask extends Task{
     private String format;
 
     public ExamTask(String title, String description, LocalDateTime dueDate, String category) {
-        super(title, description, dueDate, category);
+        super();
     }
 
     public String getCourse() {
