@@ -1,8 +1,10 @@
+import org.example.ReminderService;
 import org.example.Task;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,28 +51,32 @@ public class TaskTest {
 
     @Test
     void testFilterByCategory() {
-        // Create a list of tasks with different categories
-        Task task1 = new Task();
-        Task task2 = new Task();
-        Task task3 = new Task();
+        // Create tasks with different categories
+        Task task1 = new Task("Math homework", "Complete the exercises", null, "Study", false);
+        Task task2 = new Task("Physics lab", "Finish the experiment write-up", null, "Lab", false);
+        Task task3 = new Task("History essay", "Write about World War II", null, "Study", false);
+        Task task4 = new Task("Grocery shopping", "Buy ingredients for dinner", null, "Personal", false);
 
-        List<Task> tasks = List.of(task1, task2, task3);
+        // Put all tasks in a list
+        List<Task> allTasks = Arrays.asList(task1, task2, task3, task4);
 
-        // Filter tasks by category "Work"
-        List<Task> filteredTasks = Task.filterByCategory(tasks, "Work");
+        // Filter tasks by the "Study" category
+        List<Task> filteredTasks = ReminderService.filterByCategory(allTasks, "Study");
 
-        // Assert that the filtered tasks list contains only tasks with category "Work"
-        assertEquals(2, filteredTasks.size(), "There should be 2 tasks in the 'Work' category.");
-        assertTrue(filteredTasks.stream().allMatch(t -> "Work".equals(t.getCategory())), "All tasks should have category 'Work'");
+        // Assert that only the tasks with category "Study" are returned
+        assertEquals(2, filteredTasks.size());
+        assertEquals("Math homework", filteredTasks.get(0).getTitle());
+        assertEquals("History essay", filteredTasks.get(1).getTitle());
     }
 
     @Test
     void testOrganizeByDate() {
-        // Create a list of tasks with different due dates
-        Task task1 = new Task();
-        Task task2 = new Task();
-        Task task3 = new Task();
+        // Create tasks with different due dates
+        Task task1 = new Task("Task 1", "Description 1", LocalDateTime.of(2025, 5, 10, 9, 0), "Category 1", false);
+        Task task2 = new Task("Task 2", "Description 2", LocalDateTime.of(2025, 5, 9, 9, 0), "Category 2", false);
+        Task task3 = new Task("Task 3", "Description 3", LocalDateTime.of(2025, 5, 11, 9, 0), "Category 3", false);
 
+        // Put tasks in a list
         List<Task> tasks = List.of(task1, task2, task3);
 
         // Organize tasks by due date

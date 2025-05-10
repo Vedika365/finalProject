@@ -14,6 +14,7 @@ public class TaskManager {
         this.reminders = new ReminderService();
     }
 
+
     public void addTask(Task task) {
         this.allTask.add(task);
     }
@@ -119,5 +120,21 @@ public class TaskManager {
      */
     public static boolean loadTaskFromFile(String filePath) {
         return false;
+    }
+
+    public static List<Task> getAllTask() {
+        return allTask;
+    }
+
+    public static void setAllTask(List<Task> allTask) {
+        TaskManager.allTask = allTask;
+    }
+
+    public ReminderService getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(ReminderService reminders) {
+        this.reminders = reminders;
     }
 }
