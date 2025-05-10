@@ -5,8 +5,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ScheduleManagerTest {
 
     @AfterEach
-    void cleanUpFile() {
+    void cleanUpFile() {               //there is also beforeEach
         File file = new File("test_schedule.txt");
         if (file.exists()) {
             file.delete();
@@ -97,5 +99,5 @@ public class ScheduleManagerTest {
         assertTrue(result.contains(tasks.get(0))); // Task 1
         assertFalse(result.contains(tasks.get(1))); // Task 2
     }
-
 }
+

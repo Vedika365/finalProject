@@ -7,16 +7,17 @@ public class Notification implements Notifiable {
     private String message;
     private LocalDateTime date;
 
+
+    public Notification(String message, LocalDateTime date) {
+        this.message = message;
+        this.date = date;
+    }
+
     /**
      * sends notifications
      */
     public void  sendNotifications() {
         System.out.println("Notification :" + message + "at" + date);
-    }
-
-    public Notification(String message, LocalDateTime date) {
-        this.message = message;
-        this.date = date;
     }
 
     @Override

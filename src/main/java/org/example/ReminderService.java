@@ -16,6 +16,9 @@ public class ReminderService implements Notifiable {
      * @return a list of tasks
      */
     public static List<Task> checkDueTasks(List<Task> allTask) {
+        if (allTask == null || allTask.isEmpty()) {
+            return null;
+        }
         List<Task> dueToday = new ArrayList<>();
         LocalDate today = LocalDate.now(); // Using LocalDate to compare without time component
 
@@ -35,7 +38,6 @@ public class ReminderService implements Notifiable {
          * @return a list of tasks filtered by the given category
          */
         public static List<Task> filterByCategory(List<Task> allTasks, String category) {
-            // Use Stream API to filter tasks by category
             return allTasks.stream()
                     .filter(task -> task.getCategory() != null && task.getCategory().equals(category)) // Ensure category is not null and matches
                     .collect(Collectors.toList()); // Collect the filtered tasks into a list

@@ -127,6 +127,10 @@ public class ScheduleManager {
         return taskForCalendar;
     }
 
+    /**
+     * Delete a task
+     * @param task a list of task to delete from, task of calendar which is in the field of this class
+     */
     public void deleteTask(Task task) {
         if (this.tasks != null && this.tasks.contains(task)) {
             this.tasks.remove(task);
@@ -135,7 +139,9 @@ public class ScheduleManager {
             System.out.println("Task not found or task list is empty.");
         }
     }
-
+    /**
+     * add task to an arraylist
+     */
     public void addTask(Task task) {
         if (this.tasks == null) {
             this.tasks = new ArrayList<>();

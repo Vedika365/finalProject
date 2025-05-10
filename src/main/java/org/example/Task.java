@@ -19,6 +19,15 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
     private boolean isCompleted;
     private Priority priority;
 
+    public Task(String title, String description, LocalDateTime dueDate, String category, boolean isCompleted, Priority priority) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.category = category;
+        this.isCompleted = isCompleted;
+        this.priority = priority;
+    }
+
     public Task(String title, String description, LocalDateTime dueDate, String category, boolean isCompleted) {
         this.title = title;
         this.description = description;
@@ -41,14 +50,7 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
         this.priority = priority;
     }
 
-    public Task(String title, String description, LocalDateTime dueDate, String category, boolean isCompleted, Priority priority) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.category = category;
-        this.isCompleted = isCompleted;
-        this.priority = priority;
-    }
+
     //constructor to create task with only title
     public Task(String title ) {
         this.title = title;
@@ -141,9 +143,17 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
         return loadedTasks;
     }
 
-
+    /**
+     * Method to add a task to the task list
+     * @param task the task to add
+     */
     private void add(Task task) {
-
+        if (task != null) {
+            TaskManager.getAllTask().add(task);  // Add the task to the list
+            System.out.println("Task added: " + task.getTitle());
+        } else {
+            System.out.println("Task cannot be null.");
+        }
     }
 
     /**

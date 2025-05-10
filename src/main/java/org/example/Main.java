@@ -10,6 +10,7 @@ public class Main {
             public static void main(String[] args) {
                 ReminderService reminderService = new ReminderService();
                 TaskManager taskManager = new TaskManager(TaskManager.getAllTask(), reminderService);
+                RewardSystem rewardSystem = new RewardSystem();
 
                 // Create a few tasks
                 Task task1 = new Task("Buy groceries", "Buy milk and bread", LocalDateTime.now().plusDays(1), "Personal", false, Task.Priority.MEDIUM);
@@ -52,6 +53,19 @@ public class Main {
                 TaskManager.prioritizeTasksByPriority(TaskManager.getAllTask());
                 System.out.println("\nAfter Prioritizing by Priority:");
                 TaskManager.getAllTask().forEach(System.out::println);
+
+                System.out.println("Points after second task: " + rewardSystem.getPoints());
+
+                // Simulate more completions to reach 100 points
+                for (int i = 0; i < 8; i++) {
+                    rewardSystem.trackProgress(true);  // Simulate 8 more completed tasks
+                }
+
+                System.out.println("Points before reward check: " + rewardSystem.getPoints());
+                rewardSystem.grantReward();  // Should grant now
+
+                System.out.println("\nReward earned: " + rewardSystem.isRewardEarned());
+                System.out.println("Remaining points: " + rewardSystem.getPoints());
 
                 // Send notifications
                 System.out.println("\nSending Notifications:");
