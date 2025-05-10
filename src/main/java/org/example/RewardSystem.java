@@ -15,7 +15,11 @@ public class RewardSystem {
      * @param points the points to reset to
      * @param earned whether a reward is already earned
      */
-    public void reset(int points, boolean earned) {
+    public void reset(Integer points, boolean earned) {
+        if(points == null ) {
+            System.out.println("Reset failed : points is null ");
+            return;
+        }
         this.points = points;
         this.earned = earned;
     }
@@ -35,23 +39,24 @@ public class RewardSystem {
     }
 
     /**
-     * track progress by adding points when a task is completed
+     * Track progress by adding points when a task is completed.
+     * @param taskCompleted true if task was completed (nullable wrapper)
      */
-    public static void trackProgress(boolean TaskCompleted) {
-      if (TaskCompleted) {
-          points += 10;
-          System.out.println("Task completed. 10 points added. Total : " + points);
-      }
-      else {
-          System.out.println("no progress made");
-      }
+    public void trackProgress(Boolean taskCompleted) {
+        if (taskCompleted == null) {
+            System.out.println("Progress tracking failed: taskCompleted is null.");
+            return;
+        }
+        if (taskCompleted) {
+            points += 10;
+        }
     }
 
-    public static int getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public static boolean isRewardEarned() {
+    public boolean isRewardEarned() {
         return earned;
     }
 
