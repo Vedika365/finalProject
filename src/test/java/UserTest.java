@@ -17,7 +17,4 @@ public class UserTest {
         user.setPreference("Reading");
         assertEquals("Reading", user.getPreference());
     }
-
-
-
 }

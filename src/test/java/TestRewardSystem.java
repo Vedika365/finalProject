@@ -28,6 +28,6 @@ public class TestRewardSystem {
         assertFalse(RewardSystem.isRewardEarned()); //reward should not be granted
         assertEquals(20, RewardSystem.getPoints());
     }
-
+      //TODO NEED TO FIGURE OUT HOW TO SOLVE THE ERROR
 
 }

@@ -52,25 +52,46 @@ public class TaskManager {
       return filteredTasks;
     }
 
-    public static String viewTaskByCategory(List<Task> tasks) {
+    /**
+     * lets the user see the task by category
+     * @param tasks a list of tasks to check from
+     * @return a String containing the tasks in order
+     */
+    public String viewTaskByCategory(List<Task> tasks) {
 
     }
 
+    /**
+     * lets the user seach for a task
+     * @param task the task seraching for
+     * @return a string, the string needed
+     */
     public static String searchTask(Task task) {
 
     }
 
+    /**
+     * Organise tasks by date
+     * @param tasks the list of tasks
+     */
     public static void organiseTaskByDate(List<Task> tasks) {
 
     }
 
+    /**
+     * prioritize tasks
+     * @param task the list of tasks
+     */
     public static void prioritizeTasks(String task) {
 
     }
 
-    public static boolean loadTaskFromFile(String string) {
-
+    /**
+     * load tasks from a file
+     * @param filePath the filePath of the file to load from
+     * @return boolean value, depending on if the procedure was successful or not
+     */
+    public static boolean loadTaskFromFile(String filePath) {
+        return false;
     }
-
-
 }

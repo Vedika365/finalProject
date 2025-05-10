@@ -15,7 +15,7 @@ public class RewardSystem {
      * @param points the points to reset to
      * @param earned whether a reward is already earned
      */
-    public void reset(int points, boolean earned) {
+    public static void reset(int points, boolean earned) {
         this.points = points;
         this.earned = earned;
     }
@@ -37,7 +37,7 @@ public class RewardSystem {
     /**
      * track progress by adding points when a task is completed
      */
-    public void trackProgress(boolean TaskCompleted) {
+    public static void trackProgress(boolean TaskCompleted) {
       if (TaskCompleted) {
           points += 10;
           System.out.println("Task completed. 10 points added. Total : " + points);
@@ -47,11 +47,11 @@ public class RewardSystem {
       }
     }
 
-    public int getPoints() {
+    public static int getPoints() {
         return points;
     }
 
-    public boolean isRewardEarned() {
+    public static boolean isRewardEarned() {
         return earned;
     }
 
