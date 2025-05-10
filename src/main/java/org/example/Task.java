@@ -181,6 +181,19 @@ public class Task implements Rewardable, Schedulable, Storable, Trackable {
         }
 
     @Override
+    public String toString() {
+        return String.format(
+                "Title: %s\nDescription: %s\nDue: %s\nCategory: %s\nCompleted: %s\nPriority: %s",
+                title,
+                description,
+                dueDate,
+                category,
+                isCompleted ? "Yes" : "No",
+                priority
+        );
+    }
+
+    @Override
     public void grantReward () {
         Rewardable.super.grantReward();
     }
