@@ -66,7 +66,7 @@ class TaskManagerTest {
         tasks.add(task);
 
         taskManager.markTaskAsCompleted(task);
-        
+
         assertTrue(task.isCompleted());
     }
 

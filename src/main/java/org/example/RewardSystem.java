@@ -15,7 +15,7 @@ public class RewardSystem {
      * @param points the points to reset to
      * @param earned whether a reward is already earned
      */
-    public static void reset(int points, boolean earned) {
+    public void reset(int points, boolean earned) {
         this.points = points;
         this.earned = earned;
     }

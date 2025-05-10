@@ -2,12 +2,48 @@ package org.example;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleManager {
     private List<Task> tasks;
     List<Task> taskForCalendar;
+
+    public static List<Task> viewCalendar(String calendar, List<Task> tasks) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
+
+        List<Task> result = new ArrayList<>();
+
+        // Try parsing as a specific date
+        try {
+            LocalDate date = LocalDate.parse(calendar, dateFormatter);
+            for (Task task : tasks) {
+                if (task.getDueDate().toLocalDate().equals(date)) {
+                    result.add(task);
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            // If it's not a specific date, try parsing it as a month
+            try {
+                LocalDate monthStart = LocalDate.parse(calendar + "-01", monthFormatter);
+                LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
+                for (Task task : tasks) {
+                    if (!task.getDueDate().toLocalDate().isBefore(monthStart) &&
+                            !task.getDueDate().toLocalDate().isAfter(monthEnd)) {
+                        result.add(task);
+                    }
+                }
+            } catch (Exception ex) {
+                result.add(new Task("Error", "Invalid format. Use 'YYYY-MM-DD' or 'YYYY-MM'", null, "Error", false));
+            }
+        }
+        return result;
+    }
+
 
     /**
      * Exports the current schedule to a file
@@ -105,5 +141,20 @@ public class ScheduleManager {
             this.tasks = new ArrayList<>();
         }
         this.tasks.add(task);
+    }
+
+    /**
+     * Method to search for a task by title
+     * @param searchTask the title of the task being searched
+     * @param tasks the list of tasks to search from
+     * @return the matching Task, or null if not found
+     */
+    public Task searchTask(String searchTask, List<Task> tasks) {
+        for (Task task : tasks) {
+            if (task.getTitle().equalsIgnoreCase(searchTask)) {
+                return task;
+            }
+        }
+        return null;
     }
 }

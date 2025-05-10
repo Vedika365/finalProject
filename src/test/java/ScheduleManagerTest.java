@@ -1,9 +1,11 @@
 import org.example.ScheduleManager;
 import org.example.Task;
+import org.example.TaskManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,4 +72,20 @@ public class ScheduleManagerTest {
         boolean result = ScheduleManager.importSchedule("Dummy Schedule Data");
         assertTrue(result);
     }
+
+    @Test
+    public void testViewCalendarWithSpecificDate() {
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(new Task("Task 1", "Description", LocalDateTime.of(2025, 5, 10, 12, 0), "Work", false));
+        tasks.add(new Task("Task 2", "Description", LocalDateTime.of(2025, 5, 15, 12, 0), "Work", false));
+
+        // Call the method
+        List<Task> result = ScheduleManager.viewCalendar("2025-05-10", tasks);
+
+        // Assert that Task 1 is returned and Task 2 is not
+        assertEquals(1, result.size());
+        assertTrue(result.contains(tasks.get(0))); // Task 1
+        assertFalse(result.contains(tasks.get(1))); // Task 2
+    }
+
 }
